@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   };
 
   axios
-    .get('strainapi.evanbusse.com/API_KEY', requestOptions)
+    .get('https://medcab6api.herokuapp.com/products/fetch', requestOptions)
     .then(response => {
       res.status(200).json(response.data.results);
     })
@@ -16,5 +16,19 @@ router.get('/', (req, res) => {
       res.status(500).json({ message: 'Error Fetching meds', error: err });
     });
 });
+
+
+router.post('/', (req, res) => {
+  const projectData = req.body;
+
+  Projects.add(projectData)
+  .then(project => {
+    res.status(201).json(project);
+  })
+  .catch (err => {
+    res.status(500).json({ message: err.message });
+  });
+});
+
 
 module.exports = router;

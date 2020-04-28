@@ -21,6 +21,16 @@ router.post('/register', (req, res) => {
         });
 });
 
+router.get('/', (req, res) => {
+  Users.find()
+  .then(users => {
+    res.json(users);
+  })
+  .catch(err => {
+    res.status(500).json({ message: err.message });
+  });
+});
+
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
 
