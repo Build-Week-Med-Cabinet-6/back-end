@@ -33,9 +33,9 @@ router.post('/', (req, res) => {
 });
 
 router.get('/', (req, res) => {
-  Meds.getProjects()
-  .then(projects => {
-    res.json(projects);
+  Meds.getMeds()
+  .then(meds => {
+    res.json(meds);
   })
   .catch(err => {
     res.status(500).json({ message: err.message });
