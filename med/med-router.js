@@ -1,5 +1,7 @@
 const axios = require('axios');
 
+const Meds = require('./meds-model.js');
+
 const router = require('express').Router();
 
 router.get('/', (req, res) => {
@@ -21,11 +23,21 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
   const projectData = req.body;
 
-  Projects.add(projectData)
+  Meds.add(projectData)
   .then(project => {
     res.status(201).json(project);
   })
   .catch (err => {
+    res.status(500).json({ message: err.message });
+  });
+});
+
+router.get('/', (req, res) => {
+  Meds.getProjects()
+  .then(projects => {
+    res.json(projects);
+  })
+  .catch(err => {
     res.status(500).json({ message: err.message });
   });
 });

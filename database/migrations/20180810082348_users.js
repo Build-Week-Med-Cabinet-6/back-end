@@ -7,9 +7,21 @@ exports.up = function(knex) {
       .notNullable()
       .unique();
     users.string('password', 255).notNullable();
-  });
+  }).createTable('meds', tbl => {
+    tbl.increments();
+    tbl.string('strain',255)
+      .notNullable();
+    tbl.integer('strain_id');
+    tbl.integer('user_id')
+      .unsigned()
+      .notNullable()
+      .references('id')
+      .inTable('users')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE');
+  })
 };
 
 exports.down = function(knex, Promise) {
-  return knex.schema.dropTableIfExists('users');
+  return knex.schema.dropTableIfExists('meds').dropTableIfExists('users');
 };
