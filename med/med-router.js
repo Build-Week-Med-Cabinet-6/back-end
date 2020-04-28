@@ -10,7 +10,7 @@ router.get('/all', (req, res) => {
   };
 
   axios
-    .get('https://medcab6api.herokuapp.com/products/fetch', requestOptions)
+    .get('medcab6api.herokuapp.com/products/fetch', requestOptions)
     .then(response => {
       res.status(200).json(response.data.results);
     })
