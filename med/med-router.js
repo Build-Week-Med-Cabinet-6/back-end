@@ -4,20 +4,20 @@ const Meds = require('./meds-model.js');
 
 const router = require('express').Router();
 
-router.get('/all', (req, res) => {
-  const requestOptions = {
-    headers: { accept: 'application/json' },
-  };
+// router.get('/all', (req, res) => {
+//   const requestOptions = {
+//     headers: { accept: 'application/json' },
+//   };
 
-  axios
-    .get('medcab6api.herokuapp.com/products/fetch', requestOptions)
-    .then(response => {
-      res.status(200).json(response.data.results);
-    })
-    .catch(err => {
-      res.status(500).json({ message: 'Error Fetching meds', error: err });
-    });
-});
+//   axios
+//     .get('medcab6api.herokuapp.com/products/fetch', requestOptions)
+//     .then(response => {
+//       res.status(200).json(response.data.results);
+//     })
+//     .catch(err => {
+//       res.status(500).json({ message: 'Error Fetching meds', error: err });
+//     });
+// });
 
 
 router.post('/:id', (req, res) => {

@@ -4,10 +4,19 @@ const server = require("../api/server.js");
 const db = require("../database/dbConfig.js");
 
 const user = {
-  username: "bilbo",
+  username: "bilbo21gf2",
   password: "pass"
 };
 
+const testData = 
+
+  {
+    "strain": "kufghfgsh",
+    "strain_id": "3453"
+  };
+
+
+let token;
 
   describe("POST /register", function () {
     beforeEach(async () => {
@@ -38,7 +47,7 @@ const user = {
   });
 });
 
- 
+
 
   describe("login post", () => {
     describe("login user with correct credentials receive 200", () => {
@@ -46,7 +55,11 @@ const user = {
             request(server)
             .post("/api/auth/login")
             .send(user)
-            .expect(200)
+            
+            .end((err, response) => {
+              token = response.body.token; // save the token!
+           //   console.log("11111"+token);
+            });
         });
       });
 
@@ -67,4 +80,50 @@ const user = {
     });
   });
 
+
+  describe('GET /', () => {
+    // token not being sent - should respond with a 400
+    test('It should require authorization', () => {
+      return request(server)
+        .get('/api/med/1')
+        .then((response) => {
+          expect(response.statusCode).toBe(400);
+        });
+    });
+    // send the token - should respond with a 200
+    test('It responds with JSON', () => {
+  //    console.log("11111"+token);
+      return request(server)
+        .get('/api/med/1')
+        .set('Authorization', `${token}`)
+        .then((response) => {
+          expect(response.statusCode).toBe(200);
+          expect(response.type).toBe('application/json');
+        });
+    });
+  });
+
+  describe('POST /', () => {
+    // token not being sent - should respond with a 400
+    test('It should require authorization', () => {
+      return request(server)
+        .post('/api/med/1')
+        .send(testData)
+        .then((response) => {
+          expect(response.statusCode).toBe(400);
+        });
+    });
+    // send the token - should respond with a 200
+    test('It responds with JSON', () => {
+  //    console.log("11111"+token);
+      return request(server)
+        .get('/api/med/1')
+        .set('Authorization', `${token}`)
+        .send(testData)
+        .then((response) => {
+          expect(response.statusCode).toBe(200);
+          expect(response.type).toBe('application/json');
+        });
+    });
+  });
 
