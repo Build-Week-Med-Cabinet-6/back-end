@@ -127,3 +127,63 @@ let token;
     });
   });
 
+
+  test('Send incorrect token, deny request', () => {
+    //    console.log("11111"+token);
+        return request(server)
+          .get('/api/med/1')
+          .set('Authorization', `wrong token`)
+          .send(testData)
+          .then((response) => {
+            expect(response.statusCode).toBe(401);
+            expect(response.type).toBe('application/json');
+          });
+      });
+  
+
+
+
+
+
+
+
+      const enhancer = require("./auth-model.js");
+// test away!
+describe("auth-model.js", function () {
+  it("run all tests", () => {
+    expect(true).toBe(true);
+  });
+  describe(".succeed(item)", () => {
+    it("ensure auth model findBy is active", () => {
+      expect(
+        enhancer.findBy({
+          username: "bilbo21gf2"
+        })
+      ).toHaveProperty('_asColumnFlag', false);
+    });
+  });
+  describe(".succeed(item)", () => {
+    it("ensure auth model findById is active", () => {
+      expect(
+        enhancer.findById({
+          id: 1
+        })
+      ).toHaveProperty('_asColumnFlag', false);
+    });
+  });
+  describe(".succeed(item)", () => {
+    it("ensure auth model find is active", () => {
+      expect(
+        enhancer.find({
+          id: 1
+        })
+      ).toHaveProperty('_asColumnFlag', false);
+    });
+  });
+  describe(".succeed(item)", () => {
+    it("ensure auth model add function is active", () => {
+      expect.anything();
+    });
+  });
+  
+});

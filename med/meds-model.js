@@ -1,14 +1,9 @@
 const db = require("../database/dbConfig.js");
 
 module.exports = {
-  getMeds,
   findById,
   add
 };
-
-function getMeds() {
-  return db("meds");
-}
 
 
 function findById(id) {
